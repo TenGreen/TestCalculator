@@ -1,7 +1,7 @@
 package com.example.calculatorTest.controller;
-import com.example.calculatorTest.servis.CalculatorService;
-import com.sky.calculator.service.ICalculatorService;
-import com.sky.calculator.service.impl.CalculatorService;
+
+import com.example.calculatorTest.exeption.DivisionByZeroException;
+import com.example.calculatorTest.servise.impl.CalculatorServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,10 +12,10 @@ public class CalculatorController {
 
     @RestController
     @RequestMapping("/calculator")
-    public class CalculatorController {
-        private final CalculatorService service;
+    public class calculatorController {
+        private final CalculatorServiceImpl service;
 
-        public CalculatorController(CalculatorService service) {
+        public calculatorController(CalculatorServiceImpl service) {
             this.service = service;
         }
 
@@ -26,29 +26,26 @@ public class CalculatorController {
 
         @GetMapping("/plus")
         public String plus(@RequestParam("num1") int a, @RequestParam("num2") int b) {
-            int result = calculatorService.plus(a, b);
+            int result = service.plus(a, b);
             return String.format("%s + %s = %s", a, b, result);
         }
 
 
         @GetMapping("/minus")
         public String minus(@RequestParam("num1") int a, @RequestParam("num2") int b) {
-            int result = calculatorService.minus(a, b);
+            int result = service.minus(a, b);
             return String.format("%s - %s = %s", a, b, result);
         }
 
         @GetMapping("/multiply")
         public String multiply(@RequestParam("num1") int a, @RequestParam("num2") int b) {
-            int result = calculatorService.multiply(a, b);
+            int result = service.multiply(a, b);
             return String.format("%s * %s = %s", a, b, result);
         }
 
         @GetMapping("/divide")
         public String divide(@RequestParam("num1") int a, @RequestParam("num2") int b) {
-            if (b == 0) {
-                return "На ноль делить нельзя";
-            }
-            int result = calculatorService.divide(a, b);
+            int result = service.divide(a, b);
             return String.format("%s / %s = %s", a, b, result);
         }
     }
